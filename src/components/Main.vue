@@ -1,6 +1,6 @@
 <template>
   <main class="main-container">
-    <TextBox />
+    <TextBox :onPost="addMessage" />
     <div class="devider"></div>
     <MessageList :messages="messages" />
   </main>
@@ -18,19 +18,12 @@ export default {
   },
   data() {
     return {
-      messages: [
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-        {date: 'aaaaaaa', body: 'bbbbbbbbb'},
-      ]
+      messages: []
+    }
+  },
+  methods: {
+    addMessage(message) {
+      this.messages.push(message);
     }
   }
 }
