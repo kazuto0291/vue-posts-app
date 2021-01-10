@@ -7,8 +7,8 @@
     ></textarea>
     <div class="textbox-button">
       <Button
-       title="投稿"
-       :onClick="post"/>
+        title="投稿"
+        :onClick="post"/>
     </div>
   </div>
 </template>
@@ -21,14 +21,46 @@ export default {
   components: {
     Button
   },
+  props: {
+    onPost: {
+      type: Function,
+      required: true//エラー表示できる
+    }
+  },
   data() {
     return {
-      body:''
+      body:'',
+      message:{
+        date:'',
+        body:''
+      }
+    }
+  },
+  computed: {
+    textMessage() {
+      return this.body
     }
   },
   methods: {
     post() {
-      console.log('post@@@@')
+      if (this.body === '') { return alert('1文字以上入力してください。');}
+
+      // this.message.body = this.body
+      // this.message.date = new Date().toLocaleString()
+      // console.log(this.message)
+      // this.onPost(this.message);
+      // this.body = ''
+
+      const newMessage = this.createMesssage();
+      console.log(newMessage);
+      this.onPost(newMessage);
+      this.body = '';
+    },
+    createMesssage() {
+      return {
+        date: new Date().toLocaleString(),
+        body: this.body
+      }
     }
   }
 
