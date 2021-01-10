@@ -2,7 +2,7 @@
   <main class="main-container">
     <TextBox :onPost="addMessage" />
     <div class="devider"></div>
-    <MessageList :messages="messages" />
+    <MessageList :messages="reversedMessages" />
   </main>
 </template>
 
@@ -24,6 +24,11 @@ export default {
   methods: {
     addMessage(message) {
       this.messages.push(message);
+    }
+  },
+  computed: {
+    reversedMessages() {
+      return this.messages.slice().reverse();//sliceを入れることでmessagesのコピーの配列の順番を反転したのを表示する。
     }
   }
 }
