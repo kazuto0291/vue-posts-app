@@ -1,20 +1,30 @@
 <template>
   <main class="main-container">
-    mainが入る
+    <TextBox />
+    <div class="devider"></div>
   </main>
 </template>
 
 <script>
+import TextBox from './TextBox.vue'
+
 export default {
-  name:'Main'
+  name:'Main',
+  components:{
+    TextBox
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .main-container {
-  width: cal(100% - 200px);
+  width: calc(100% - 200px);
   flex: 1;
   position: absolute;
   left: 200px;
+  }
+
+  .devider {
+    border-top: 10px solid gray;
   }
 </style>
