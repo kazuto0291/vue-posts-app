@@ -1,5 +1,5 @@
 import { dbMessages } from '../db';
-import { firebase } from 'firebase';
+import firebase from 'firebase';
 class Message {
   constructor([id, body, date]) {
     this.id = id;
@@ -15,10 +15,11 @@ class Message {
     // 問題なく文字が入力されていれば、中身がbodyプロパティーとdateプロパティーオブジェクトのpostDataをセットする。
     const postData = {
       body,
-      date: firebase.firestore.FielValue.serverTimestamp()//firestoreの受け付けたサーバーの時間を利用することによってパソコンの環境、場所の環境の違いを防ぐため。
+      date: firebase.firestore.FieldValue.serverTimestamp()//firestoreの受け付けたサーバーの時間を利用することによってパソコンの環境、場所の環境の違いを防ぐため。
     };
     // docRef--ドキュメントを参照--dbMessagesのaddを使ってpostDataを送る
     const docRef = await dbMessages.add(postData);
+    console.log(docRef);
     const snapShot = await docRef.get();//getをつかってshapshotを取得する
     const data = snapShot.data();//shapshotの中にデータが入っている。
     const model = this.create(docRef.id, data);
@@ -34,3 +35,5 @@ class Message {
     });
   }
 }
+
+export default Message;

@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import Button from './Button.vue'
+import Button from './Button.vue';
+import MessageModel from '../models/Message';
 
 export default {
   name: 'TextBox',
@@ -42,8 +43,8 @@ export default {
     }
   },
   methods: {
-    post() {
-      if (this.body === '') { return alert('1文字以上入力してください。');}
+    async post() {
+      // if (this.body === '') { return alert('1文字以上入力してください。');}
 
       // this.message.body = this.body
       // this.message.date = new Date().toLocaleString()
@@ -51,17 +52,16 @@ export default {
       // this.onPost(this.message);
       // this.body = ''
 
-      const newMessage = this.createMesssage();
-      console.log(newMessage);
-      this.onPost(newMessage);
-      this.body = '';
-    },
-    createMesssage() {
-      return {
-        date: new Date().toLocaleString(),
-        body: this.body
+      try {
+        const message = await MessageModel.save({
+          body: this.body
+        });
+        this.onPost(message);
+        this.body = '';
+      } catch (error) {
+        alert(error.message);
       }
-    }
+    },
   }
 
 
