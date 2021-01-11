@@ -3,7 +3,8 @@
     <TextBox :onPost="addMessage" />
     <div class="devider"></div>
     <Spinner v-if="spinnerInitialLoaded"/>
-    <MessageList :messages="reversedMessages" />
+    <p class="no-messages" v-else-if="!spinnerInitialLoaded && messages.length === 0">投稿データ０件</p>
+    <MessageList v-else :messages="reversedMessages" />
   </main>
 </template>
 
@@ -69,5 +70,9 @@ export default {
 
   .devider {
     border-top: 10px solid gray;
+  }
+
+  .no-messages {
+    text-align: center;
   }
 </style>
