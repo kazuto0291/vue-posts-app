@@ -2,6 +2,7 @@
   <main class="main-container">
     <TextBox :onPost="addMessage" />
     <div class="devider"></div>
+    <Spinner v-if="spinnerInitialLoaded"/>
     <MessageList :messages="reversedMessages" />
   </main>
 </template>
@@ -10,16 +11,19 @@
 import TextBox from './TextBox.vue';
 import MessageList from './MessageList';
 import MessageModel from '../models/Message';
+import Spinner from './Spinner';
 
 export default {
   name:'Main',
   components:{
     TextBox,
-    MessageList
+    MessageList,
+    Spinner
   },
   data() {
     return {
-      messages: []
+      messages: [],
+      spinnerInitialLoaded: true
     }
   },
   computed: {
@@ -34,7 +38,7 @@ export default {
     const messages = await this.fetchMessages();//Mainインスタンス内のfetchMessageを実行
     // 取得したmessagesをdetaのmessagesに代入する。
     this.messages =messages;
-    this.initialLoaded = true;
+    this.spinnerInitialLoaded = false;
   },
   methods: {
     addMessage(message) {
