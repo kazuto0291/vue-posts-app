@@ -5,7 +5,9 @@
     <SideMenu></SideMenu>
     <main class="main-container">
       <!-- <Main></Main> -->
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </main>
     </div>
   </div>
