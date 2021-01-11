@@ -1,14 +1,28 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import General from '../views/General.vue';
+import Chat from '../views/Chat.vue';
+import SelfIntroduction from '../views/SelfIntroduction.vue';
+
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'App',
-  //   component:
-  // },
+  {
+    path: '/',
+    name: 'General',
+    component: General
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
+  },
+  {
+    path: '/selfIntroduction',
+    name: 'SelfIntroduction',
+    component: SelfIntroduction
+  },
   // {
   //   path: '/about',
   //   name: 'About',
