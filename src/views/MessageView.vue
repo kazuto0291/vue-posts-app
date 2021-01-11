@@ -47,7 +47,7 @@ export default {
     async fetchMessages() {
       let messages = [];
       try {
-        messages = await MessageModel.fetchMessages();
+        messages = await MessageModel.fetchMessages(this.$route.params.channelId);
       } catch (error) {
         // 読み込み失敗など、何かしらのエラーが発生したらユーザーにデータの読み込みが失敗したことを知らせる
         alert(error.message);

@@ -1,4 +1,4 @@
-import { dbMessages } from '../db';
+import { getCollectionMessages } from '../db';
 import firebase from 'firebase';
 class Message {
   constructor({id, body, date}) {
@@ -17,8 +17,8 @@ class Message {
       body,
       date: firebase.firestore.FieldValue.serverTimestamp()//firestoreの受け付けたサーバーの時間を利用することによってパソコンの環境、場所の環境の違いを防ぐため。
     };
-    // docRef--ドキュメントを参照--dbMessagesのaddを使ってpostDataを送る
-    const docRef = await dbMessages.add(postData);
+    // docRef--ドキュメントを参照--getCollectionMessagesのaddを使ってpostDataを送る
+    const docRef = await getCollectionMessages().add(postData);
     // console.log(docRef);
     const snapShot = await docRef.get();//getをつかってshapshotを取得する
     const data = snapShot.data();//shapshotの中にデータが入っている。
@@ -34,9 +34,9 @@ class Message {
     });
   }
 
-  static async fetchMessages() {
+  static async fetchMessages(channelId) {
     // 変数-collectionに対して firestoreのMessageのdateが小さい順を樹徳する
-    const collection = await dbMessages.orderBy('date').get();
+    const collection = await getCollectionMessages(channelId).orderBy('date').get();
     if (collection.empty) {//データがないときはから配列を返す処理をする
       return [];
     }
