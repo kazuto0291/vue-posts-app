@@ -1,6 +1,4 @@
-import { from } from "core-js/fn/array";
 import { dbChannels } from '../db';
-import { firebase } from 'firebase';
 
 class Channel {
   // constructor の引数をオブジェクトにすると順番を気にしなくてすむからおすすめ
