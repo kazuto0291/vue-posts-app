@@ -1,11 +1,11 @@
 <template>
-  <main class="main-container">
+  <div>
     <TextBox :onPost="addMessage" />
     <div class="devider"></div>
     <Spinner v-if="spinnerInitialLoaded"/>
     <p class="no-messages" v-else-if="!spinnerInitialLoaded && messages.length === 0">投稿データ０件</p>
     <MessageList v-else :messages="reversedMessages" />
-  </main>
+  </div>
 </template>
 
 <script>
@@ -61,13 +61,6 @@ export default {
 </script>
 
 <style scoped>
-.main-container {
-  width: calc(100% - 200px);
-  flex: 1;
-  position: absolute;
-  left: 200px;
-  }
-
   .devider {
     border-top: 10px solid gray;
   }
