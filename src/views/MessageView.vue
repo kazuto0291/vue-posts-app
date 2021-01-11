@@ -9,13 +9,12 @@
 </template>
 
 <script>
-import TextBox from './TextBox.vue';
-import MessageList from './MessageList';
-import MessageModel from '../models/Message';
-import Spinner from './Spinner';
+import TextBox from '@/components/TextBox';
+import MessageList from '@/components/MessageList';
+import MessageModel from '@/models/Message';
+import Spinner from '@/components/Spinner';
 
 export default {
-  name:'Main',
   components:{
     TextBox,
     MessageList,

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import MessageView from '../views/MessageView.vue';
 import General from '../views/General.vue';
 import Chat from '../views/Chat.vue';
 import SelfIntroduction from '../views/SelfIntroduction.vue';
@@ -9,9 +10,9 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'General',
-    component: General
+    path: '/:channelId',
+    name: 'MessageView',
+    component: MessageView
   },
   {
     path: '/chat',
@@ -22,6 +23,11 @@ const routes = [
     path: '/selfIntroduction',
     name: 'SelfIntroduction',
     component: SelfIntroduction
+  },
+  {
+    path: '*',
+    name: 'General',
+    component: General
   },
   // {
   //   path: '/about',

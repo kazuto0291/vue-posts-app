@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MessageView from '@/components/MessageView';
+import MessageView from '@/views/MessageView';
 
 export default {
   components: {
