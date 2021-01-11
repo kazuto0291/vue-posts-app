@@ -8,7 +8,9 @@
     <div class="textbox-button">
       <Button
         title="投稿"
-        :onClick="post"/>
+        :onClick="post"
+        :clickable="canPost"
+        />
     </div>
   </div>
 </template>
@@ -31,10 +33,7 @@ export default {
   data() {
     return {
       body:'',
-      message:{
-        date:'',
-        body:''
-      }
+      canPost: true
     }
   },
   computed: {
@@ -44,23 +43,20 @@ export default {
   },
   methods: {
     async post() {
-      // if (this.body === '') { return alert('1文字以上入力してください。');}
-
-      // this.message.body = this.body
-      // this.message.date = new Date().toLocaleString()
-      // console.log(this.message)
-      // this.onPost(this.message);
-      // this.body = ''
-
+      console.log('@@@')
+      this.canPost = false;//ボタン連打でデータの送信の重複を防ぐ
       try {
         const message = await MessageModel.save({
           body: this.body
         });
+        console.log(message)
         this.onPost(message);
         this.body = '';
       } catch (error) {
+        console.log(error.message)
         alert(error.message);
       }
+      this.canPost = true;//データの登録が終わったらボタンが押せるように変更する
     },
   }
 

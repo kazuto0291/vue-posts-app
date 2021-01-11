@@ -1,7 +1,7 @@
 import { dbMessages } from '../db';
 import firebase from 'firebase';
 class Message {
-  constructor([id, body, date]) {
+  constructor({id, body, date}) {
     this.id = id;
     this.body = body;
     this.date = date;
@@ -19,19 +19,31 @@ class Message {
     };
     // docRef--ドキュメントを参照--dbMessagesのaddを使ってpostDataを送る
     const docRef = await dbMessages.add(postData);
-    console.log(docRef);
+    // console.log(docRef);
     const snapShot = await docRef.get();//getをつかってshapshotを取得する
     const data = snapShot.data();//shapshotの中にデータが入っている。
     const model = this.create(docRef.id, data);
-
     return model;
   }
 
-  static create(id, data) {
+  static create(id, data) {//Messageのインスタンスを作る
     return new Message({
       id,
       body: data.body,
       date: data.date.toDate().toLocaleString()
+    });
+  }
+
+  static async fetchMessages() {
+    // 変数-collectionに対して firestoreのMessageのdateが小さい順を樹徳する
+    const collection = await dbMessages.orderBy('date').get();
+    if (collection.empty) {//データがないときはから配列を返す処理をする
+      return [];
+    }
+
+    // 取得したcollectionの配列に対してmapメソッドで取得した要素分messageインスタンスを作成する処理をする。
+    return collection.docs.map(doc => {
+      return this.create(doc.id, doc.data())
     });
   }
 }

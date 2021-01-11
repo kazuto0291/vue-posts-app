@@ -1,9 +1,12 @@
 <template>
-  <div
+  <button
     class="button"
-    @click="onClick">
+    :class="{disabled: !clickable}"
+    @click="onClick"
+    :disabled="!clickable"
+    >
     {{title}}
-  </div>
+  </button>
 </template>
 
 <script>
@@ -18,6 +21,11 @@ export default {
       type:Function,
       // 必ずセットされる
       required:true
+    },
+    clickable: {
+      type: Boolean,
+      required:false,
+      default: true
     }
   }
 }
@@ -31,6 +39,7 @@ export default {
   color: white;
   padding: 10px;
   cursor: pointer;
+  border: none;
 }
 .button:hover {
   background: rgb(182, 0, 0);
@@ -38,5 +47,9 @@ export default {
 
 .button:active {
   background: rgb(138, 13, 13);
+}
+
+.disabled {
+  opacity: 0.3;
 }
 </style>
