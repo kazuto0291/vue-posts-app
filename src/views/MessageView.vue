@@ -35,10 +35,7 @@ export default {
     // messageのインスタンスが作成時にデータを取得するためcreatedに処理を書く
     // fetchMessagesが外部のDBにアクセスする処理なのでひ時処理にする
     // 非同期処理のfetchMessageで取得したデータを変数-messagesに代入
-    const messages = await this.fetchMessages();//Mainインスタンス内のfetchMessageを実行
-    // 取得したmessagesをdetaのmessagesに代入する。
-    this.messages =messages;
-    this.spinnerInitialLoaded = false;
+      await this.fetchMessages();//Mainインスタンス内のfetchMessageを実行
   },
   methods: {
     addMessage(message) {
@@ -52,9 +49,22 @@ export default {
         // 読み込み失敗など、何かしらのエラーが発生したらユーザーにデータの読み込みが失敗したことを知らせる
         alert(error.message);
       }
-      return messages
+          // 取得したmessagesをdetaのmessagesに代入する。
+    this.messages =messages;
+    this.spinnerInitialLoaded = false;
     }
   },
+  watch: {
+    // VueRouterでvueインスタンスに追加されている$routeを監視して何かしらの変更があれば関数が実行される。
+    '$route' : async function() {
+      //ページが切り替わるたびに読み込みを行う
+      // messageを空にする。
+      // messageを取得しに行く
+      this.spinnerInitialLoaded = true;
+      this.messages = [];
+      await this.fetchMessages();
+    }
+  }
 
 }
 </script>
