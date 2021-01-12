@@ -24,6 +24,7 @@ class Message {
     const data = snapShot.data();//shapshotの中にデータが入っている。
     const model = this.create(docRef.id, data);
     return model;
+    
   }
 
   static create(id, data) {//Messageのインスタンスを作る
