@@ -28,6 +28,10 @@ export default {
     onPost: {
       type: Function,
       required: true//エラー表示できる
+    },
+    channelId: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -47,7 +51,8 @@ export default {
       this.canPost = false;//ボタン連打でデータの送信の重複を防ぐ
       try {
         const message = await MessageModel.save({
-          body: this.body
+          body: this.body,
+          channelId: this.channelId
         });
         console.log(message)
         this.onPost(message);

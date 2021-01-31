@@ -7,7 +7,7 @@ class Message {
     this.date = date;
   }
 
-  static async save({ body }) {
+  static async save({ body, channelId }) {
     // もし受け取っったbodyが空文字列、undefindの場合は例外(エラー)を投げる処理
     if (!body || !body.trim()) {
       throw new Error('bodyはstring型で一文字以上の入力が必須です');
@@ -18,7 +18,7 @@ class Message {
       date: firebase.firestore.FieldValue.serverTimestamp()//firestoreの受け付けたサーバーの時間を利用することによってパソコンの環境、場所の環境の違いを防ぐため。
     };
     // docRef--ドキュメントを参照--getCollectionMessagesのaddを使ってpostDataを送る
-    const docRef = await getCollectionMessages().add(postData);
+    const docRef = await getCollectionMessages(channelId).add(postData);
     // console.log(docRef);
     const snapShot = await docRef.get();//getをつかってshapshotを取得する
     const data = snapShot.data();//shapshotの中にデータが入っている。
